@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Loader2, X } from "lucide-react";
 import { toast } from "sonner";
+import { ScrollBar } from "./ui/scroll-area";
 
 interface FavoriteCity {
   id: string;
@@ -21,16 +22,17 @@ const FavoriteCities = () => {
   return (
     <>
       <h1 className="text-xl font-bold tracking-light">Favorite Cities</h1>
-      <ScrollArea className="w-full pb-4">
-        <div className="flex gap-4">
-          {favorites.map((favorite) => (
+      <ScrollArea className="w-full pb-4 overflow-x-auto">
+        <div className="flex gap-4 min-w-max">
+          {favorites.map((city) => (
             <FavoriteCityTablet
-              key={favorite.id}
-              {...favorite}
-              onRemove={() => removeFavorites.mutate(favorite.id)}
+              key={city.id}
+              {...city}
+              onRemove={() => removeFavorites.mutate(city.id)}
             />
           ))}
         </div>
+        <ScrollBar orientation="horizontal" className="mt-2" />
       </ScrollArea>
     </>
   );
